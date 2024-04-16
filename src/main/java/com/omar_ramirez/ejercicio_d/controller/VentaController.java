@@ -1,26 +1,79 @@
-package com.omar_ramirez.ejercicio_d;
+package com.omar_ramirez.ejercicio_d.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import com.omar_ramirez.ejercicio_d.model.Venta;
+import com.omar_ramirez.ejercicio_d.service.VentaService;
 
 // import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
-public class VentasController {
+@RequestMapping("/ventas")
+public class VentaController {
+
+    private static final Logger log = LoggerFactory.getLogger(VentaController.class);
+
+    @Autowired
+    private VentaService ventaService;
+
+    //get all 
+    @GetMapping
+    public List<Venta> obtenerVentas() {
+        log.info("GET /Ventas");
+        log.info("getAllVenta");
+        return ventaService.getAllVentas();
+    }
+
+    //get id 
+    @GetMapping("/{id}")
+    public Venta obtenerVentasPorId(@PathVariable Long id) {
+        log.info("GET /Venta/{id}");
+        log.info("obtenerVentaPorId");
+        return ventaService.VentaById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Venta no encontrada"));
+    }
+
+    //Crear 
+    @PostMapping("/crear")
+    public Venta crearVenta(@RequestBody Venta Venta) {
+        log.info("POST /Ventas");
+        log.info("crearVentas");
+        return ventaService.createVenta(Venta);
+    }
+ 
+    //modificar 
+    @PutMapping("/{id}")
+    public Venta modificarVenta(@PathVariable Long id, @RequestBody Venta Venta) {
+        log.info("PUT /comentairo/{id}");
+        log.info("modificarVenta");
+        return ventaService.updateVenta(id, Venta);
+    }
+
+    //eliminar 
+    @DeleteMapping("/{id}")
+    public void eliminarVenta(@PathVariable Long id) {
+        log.info("DELETE /Venta/{id}");
+        log.info("eliminarVenta");
+        ventaService.deleteVenta(id);
+        //retorno de mensaje de eliminacion de servicio json
+        log.info("Venta eliminado");
+
+    }
+
 
     private List<Venta> ventas = new ArrayList<>();
-
-    public VentasController() {
-        // Inicializando la lista de ventas y añadiendo 3 instancias de Venta
-        // ventas = new ArrayList<>();
-        ventas.add(new Venta(1L, "Alimento para perros", 5, 19.99, 2023, 3, 15));
-        ventas.add(new Venta(2L, "Juguete para gatos", 2, 9.99, 2023, 3, 16));
-        ventas.add(new Venta(3L, "Collar para perros", 1, 5.99, 2023, 3, 17));
-    }
 
     @GetMapping("/{anio}/{mes}/{dia}")
     public List<Venta> obtenerVentasPorDia(@PathVariable int anio, @PathVariable int mes, @PathVariable int dia) {
