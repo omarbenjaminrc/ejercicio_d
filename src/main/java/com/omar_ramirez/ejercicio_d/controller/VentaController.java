@@ -75,48 +75,48 @@ public class VentaController {
 
     private List<Venta> ventas = new ArrayList<>();
 
-    @GetMapping("/{anio}/{mes}/{dia}")
-    public List<Venta> obtenerVentasPorDia(@PathVariable int anio, @PathVariable int mes, @PathVariable int dia) {
-        return ventas.stream()
-                    .filter(venta -> venta.getAnio() == anio && venta.getMes() == mes && venta.getDia() == dia)
-                    .collect(Collectors.toList());
-    }
-    @GetMapping("/{anio}/{mes}")
-    public List<Venta> obtenerVentasPorDia(@PathVariable int anio, @PathVariable int mes) {
-        return ventas.stream()
-                    .filter(venta -> venta.getAnio() == anio && venta.getMes() == mes)
-                    .collect(Collectors.toList());
-    }
-    @GetMapping("/{anio}")
-    public List<Venta> obtenerVentasPorDia(@PathVariable int anio) {
-        return ventas.stream()
-            .filter(venta -> venta.getAnio() == anio )
-            .collect(Collectors.toList());
-    }
+    // @GetMapping("/{anio}/{mes}/{dia}")
+    // public List<Venta> obtenerVentasPorDia(@PathVariable int anio, @PathVariable int mes, @PathVariable int dia) {
+    //     return ventas.stream()
+    //                 .filter(venta -> venta.getAnio() == anio && venta.getMes() == mes && venta.getDia() == dia)
+    //                 .collect(Collectors.toList());
+    // }
+    // @GetMapping("/{anio}/{mes}")
+    // public List<Venta> obtenerVentasPorDia(@PathVariable int anio, @PathVariable int mes) {
+    //     return ventas.stream()
+    //                 .filter(venta -> venta.getAnio() == anio && venta.getMes() == mes)
+    //                 .collect(Collectors.toList());
+    // }
+    // @GetMapping("/{anio}")
+    // public List<Venta> obtenerVentasPorDia(@PathVariable int anio) {
+    //     return ventas.stream()
+    //         .filter(venta -> venta.getAnio() == anio )
+    //         .collect(Collectors.toList());
+    // }
 
-    // calcular las ganancias
+    // // calcular las ganancias
 
-    @GetMapping("/ganancias/{anio}/{mes}/{dia}")
-    public double obtenerGananciasPorDia(@PathVariable int anio, @PathVariable int mes, @PathVariable int dia) {
-        return ventas.stream()
-            .filter(venta -> venta.getAnio() == anio && venta.getMes() == mes && venta.getDia() == dia)
-            .mapToDouble(venta -> venta.getPrecio() * venta.getCantidad())
-            .sum();
-    }
+    // @GetMapping("/ganancias/{anio}/{mes}/{dia}")
+    // public double obtenerGananciasPorDia(@PathVariable int anio, @PathVariable int mes, @PathVariable int dia) {
+    //     return ventas.stream()
+    //         .filter(venta -> venta.getAnio() == anio && venta.getMes() == mes && venta.getDia() == dia)
+    //         .mapToDouble(venta -> venta.getPrecio() * venta.getCantidad())
+    //         .sum();
+    // }
 
-    @GetMapping("/ganancias/{anio}/{mes}")
-    public double obtenerGananciasPorMes(@PathVariable int anio, @PathVariable int mes) {
-        return ventas.stream()
-            .filter(venta -> venta.getAnio() == anio && venta.getMes() == mes)
-            .mapToDouble(venta -> venta.getPrecio() * venta.getCantidad())
-            .sum();
-    }
+    // @GetMapping("/ganancias/{anio}/{mes}")
+    // public double obtenerGananciasPorMes(@PathVariable int anio, @PathVariable int mes) {
+    //     return ventas.stream()
+    //         .filter(venta -> venta.getAnio() == anio && venta.getMes() == mes)
+    //         .mapToDouble(venta -> venta.getPrecio() * venta.getCantidad())
+    //         .sum();
+    // }
 
-    @GetMapping("/ganancias/{anio}")
-    public double obtenerGananciasPorAnio(@PathVariable int anio) {
-        return ventas.stream()
-            .filter(venta -> venta.getAnio() == anio)
-            .mapToDouble(venta -> venta.getPrecio() * venta.getCantidad())
-            .sum();
-    }
+    // @GetMapping("/ganancias/{anio}")
+    // public double obtenerGananciasPorAnio(@PathVariable int anio) {
+    //     return ventas.stream()
+    //         .filter(venta -> venta.getAnio() == anio)
+    //         .mapToDouble(venta -> venta.getPrecio() * venta.getCantidad())
+    //         .sum();
+    // }
 }
